@@ -2,34 +2,14 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-      <table class="message table">
-        <% @chats.each do |chat| %>
-          <% if chat.user_id == current_user.id %>
-          <tbody>
-            <tr>
-              <th>
-                <p style="text-align:right; "><%= chat.message %></p>
-              </th>
-            </tr>
-          </tbody>
-          <% else %>
-          <tbody>
-            <tr>
-              <th>
-                <p style="text-align:left; "><%= chat.message %></p>
-              </th>
-            </tr>
-          </tbody>
-          <% end %>
-        <% end %>
-      </table>
+      <div>
+        <%= render "index",chats:@chats %>
+      </div>
     </div>
     <div class="col-md-6"></div>
+    <div>
+      <%= render "form",chat:@chat %>
+    </div>
   </div>
 </div>
 
-<%= form_with model:@chat,remote:true do |f| %>
-  <%= f.text_field :message ,class:"message-form" %>
-  <%= f.hidden_field :room_id %>
-  <% f.submit %>
-<% end %>
