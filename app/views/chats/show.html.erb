@@ -1,0 +1,35 @@
+<h2><%= @user.name %>さんとのチャット</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <% @chats.each do |chat| %>
+          <% if chat.user_id == current_user.id %>
+          <tbody>
+            <tr>
+              <th>
+                <p style="text-align:right; "><%= chat.message %></p>
+              </th>
+            </tr>
+          </tbody>
+          <% else %>
+          <tbody>
+            <tr>
+              <th>
+                <p style="text-align:left; "><%= chat.message %></p>
+              </th>
+            </tr>
+          </tbody>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+</div>
+
+<%= form_with model:@chat do |f| %>
+  <%= f.text_field :message %>
+  <%= f.hidden_field :room_id %>
+  <% f.submit %>
+<% end %>
