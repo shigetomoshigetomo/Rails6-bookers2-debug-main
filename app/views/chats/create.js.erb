@@ -1,3 +1,3 @@
-$('#chat-message').html('<%= j(render "chats/index",chats:@chats)%>');
+$('.message').append('<tr><th><p style="text-align:right; "><%= @chat.message %></p></th></tr>');
 
-$('.message-form').val('');
+$('input[type=text]').val('');

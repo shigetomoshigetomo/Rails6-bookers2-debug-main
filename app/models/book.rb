@@ -24,8 +24,4 @@ class Book < ApplicationRecord
     end
   end
 
-  #def self.week_rank
-    #now=Time.current
-    #Book.joins(:favorites).where(favorites: {created_at:now..now.ago(7.days)}).group(:id).order("count(*) desc")
-  #end
 end
