@@ -26,7 +26,9 @@
             </td>
             <td class="book-comments-counter"><%= render "book_comments/counter", book:@book %></td>
           <% end %>
-
+          <td>
+            <i class="fa-solid fa-eye" style="color:gray; "></i><%= @book.impressionist_count(:filter=>:session_hash) %>
+          </td>
         </tr>
       </table>
       <div id="comments">
