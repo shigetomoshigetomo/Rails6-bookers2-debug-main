@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   resources :chats, only: [:create,:show]
 
-  resources :groups, except: [:destroy]
+  resources :groups do
+    get "join" => "groups#join"
+  end
 
   resources :books, only: [:index,:show,:edit,:create,:destroy,:update] do
     resource:favorites,only:[:create,:destroy]
