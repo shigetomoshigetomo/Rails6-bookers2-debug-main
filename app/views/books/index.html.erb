@@ -9,6 +9,10 @@
     </div>
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
+      <%= form_with url: books_path,lacal:true,method: :get do |f| %>
+        <%= f.select:sequence,options_for_select([["新着順"],["評価が高い順"],["いいねが多い順"]]) %>
+        <%= f.submit "並替え" %>
+      <% end %>
       <%= render 'index', books: @books%>
     </div>
   </div>

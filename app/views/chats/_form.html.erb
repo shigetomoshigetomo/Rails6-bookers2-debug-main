@@ -1,4 +1,5 @@
 <%= form_with model:chat,data: {remote: true} do |f| %>
   <%= f.text_field :message %>
   <%= f.hidden_field :room_id %>
+  <%= f.submit "送る" %>
 <% end %>
