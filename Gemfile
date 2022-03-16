@@ -57,3 +57,4 @@ gem 'devise'
 gem 'pry-rails'
 
 gem 'impressionist'
+gem 'kaminari','~> 1.2.1'

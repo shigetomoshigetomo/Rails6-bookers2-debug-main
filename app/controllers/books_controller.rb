@@ -15,13 +15,16 @@ class BooksController < ApplicationController
     from=(to-6.day).at_beginning_of_day
 
     if @sequence=="新着順"
-      @books=Book.all.order(created_at: :desc)
+      books=Book.all.order(created_at: :desc)
+      @books=Kaminari.paginate_array(books).page(params[:page]).per(5)
     elsif @sequence=="評価が高い順"
-      @books=Book.all.order(rate: :desc)
+      books=Book.all.order(rate: :desc)
+      @books=Kaminari.paginate_array(books).page(params[:page]).per(5)
     else
-      @books = Book.all.sort {|a,b|
+      books = Book.all.sort {|a,b|
       b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size}
+      @books=Kaminari.paginate_array(books).page(params[:page]).per(5)
     end
 
     @book=Book.new
