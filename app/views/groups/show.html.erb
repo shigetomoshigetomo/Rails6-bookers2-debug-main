@@ -28,6 +28,11 @@
                 ・<%= member.name %><br>
               <% end %>
             </td>
+            <% if @group.users.include?(current_user) %>
+              <td>
+                <%= link_to "Talk",group_group_post_path(@group.id) %>
+              </td>
+            <% end %>
             <td>
               <% if @group.owner_id==current_user.id %>
                 <%= link_to "Edit",edit_group_path(@group.id),class:"btn btn-success" %>
