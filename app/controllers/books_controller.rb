@@ -7,6 +7,11 @@ class BooksController < ApplicationController
     impressionist(@book, nil, unique: [:session_hash.to_s])
     @book_new=Book.new
     @book_comment=BookComment.new
+
+    if params[:tag_name]
+      @books=Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
+    end
+
   end
 
   def index
@@ -25,6 +30,10 @@ class BooksController < ApplicationController
       b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size}
       @books=Kaminari.paginate_array(books).page(params[:page]).per(5)
+    end
+
+    if params[:tag_name]
+      @books=Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
     end
 
     @book=Book.new
@@ -66,6 +75,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title,:body,:rate)
+    params.require(:book).permit(:title,:body,:rate,:tag_list)
   end
 end

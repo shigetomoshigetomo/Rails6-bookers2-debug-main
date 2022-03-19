@@ -4,6 +4,7 @@
       <th></th>
       <th>Title</th>
       <th>Opinion</th>
+      <th>Category</th>
       <th><i class="fas fa-heart" style="color:red;"></i></th>
       <th>Comment</th>
       <th>Rate</th>
@@ -21,31 +22,32 @@
         </td>
         <td><%= link_to book.title,book, class: "book_#{book.id}" %></td>
         <td><%= book.body %></td>
+        <td><%= link_to book.tag_list,books_path(tag_name: book.tag_list) %></td>
         <td id="favorite_buttons_<%= book.id %>">
           <%= render "favorites/favorite",book:book %>
         </td>
         <td><%= render "book_comments/counter",book:book %></td>
         <td>
-            <div class="relative-post-evaluation">
-              <span id="star-rate-<%= book.id %>"></span>
-              <script>
-              $('#star-rate-<%= book.id %>').empty();
-                $('#star-rate-<%= book.id %>').raty({
-                  size: 36,
-                  starOff: "<%= asset_path('star-off.png') %>",
-                  starOn: "<%= asset_path('star-on.png') %>",
-                  starHalf: "<%= asset_path('star-half.png') %>",
-                  half: true,
-                  readOnly: true,
-                  score: <%= book.rate %>,
-                });
-              </script>
-              <%= book.rate %>
-            </div>
+          <div class="relative-post-evaluation">
+            <span id="star-rate-<%= book.id %>"></span>
+            <script>
+            $('#star-rate-<%= book.id %>').empty();
+              $('#star-rate-<%= book.id %>').raty({
+                size: 36,
+                starOff: "<%= asset_path('star-off.png') %>",
+                starOn: "<%= asset_path('star-on.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                half: true,
+                readOnly: true,
+                score: <%= book.rate %>,
+              });
+            </script>
+            <%= book.rate %>
+          </div>
           </td>
         <td>
-            <i class="fa-solid fa-eye" style="color:gray; "></i><%= book.impressionist_count(:filter=>:session_hash) %>
-          </td>
+          <i class="fa-solid fa-eye" style="color:gray; "></i><%= book.impressionist_count(:filter=>:session_hash) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

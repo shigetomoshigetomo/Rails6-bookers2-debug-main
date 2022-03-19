@@ -17,6 +17,7 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
+          <td><%= link_to @book.tag_list,books_path(tag_name: @book.tag_list) %></td>
           <td>
             <div class="relative-post-evaluation">
               <span id="star-rate-<%= @book.id %>"></span>
@@ -50,11 +51,11 @@
         </tr>
       </table>
       <div id="comments">
-      <%= render "book_comments/index",book:@book %>
+        <%= render "book_comments/index",book:@book %>
       </div>
 
       <div id="comment-form">
-      <%= render "book_comments/form",book:@book,book_comment:@book_comment %>
+        <%= render "book_comments/form",book:@book,book_comment:@book_comment %>
       </div>
       </div>
     </div>
