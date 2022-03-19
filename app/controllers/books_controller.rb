@@ -36,6 +36,10 @@ class BooksController < ApplicationController
       @books=Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
     end
 
+    if params[:word]
+      @books=Book.tagged_with(params[:word],match_all: true).page(params[:page]).per(5)
+    end
+
     @book=Book.new
   end
 
