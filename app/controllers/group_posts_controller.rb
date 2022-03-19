@@ -1,5 +1,6 @@
 class GroupPostsController < ApplicationController
 
+  before_action :ensure_correct_user
 
   def show
     @group=Group.find(params[:group_id])
@@ -28,6 +29,12 @@ class GroupPostsController < ApplicationController
     params.require(:group_post).permit(:content)
   end
 
+  def ensure_correct_user
+    @group=Group.find(params[:group_id])
+    unless @group.users.include?(current_user)
+      redirect_to groups_path
+    end
+  end
 
 
 end
