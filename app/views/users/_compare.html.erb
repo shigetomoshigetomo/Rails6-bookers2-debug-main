@@ -1,0 +1,42 @@
+<table class="table table-bordered">
+        <thead>
+          <tr class="table-info">
+            <th>今日の投稿数</th>
+            <th>前日の投稿数</th>
+            <th>前日比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= today_book.count %></td>
+            <td><%= yesterday_book.count %></td>
+            <td>
+              <% if yesterday_book.count == 0 %>
+                <p>前日の投稿はありません</p>
+              <% else %>
+                <p><%= (yesterday_compare*100).round %>%</p>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr class="table-info">
+            <th>今週の投稿数</th>
+            <th>前週の投稿数</th>
+            <th>前週比</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= this_week.count %></td>
+            <td><%= last_week.count %></td>
+            <td>
+              <% if last_week.count == 0 %>
+                <p>前週の投稿はありません</p>
+              <% else %>
+                <p><%= (week_compare*100).round %>%</p>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>

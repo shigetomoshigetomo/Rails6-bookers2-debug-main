@@ -19,32 +19,17 @@
           <td><%= @book.body %></td>
           <td><%= link_to @book.tag_list,books_path(tag_name: @book.tag_list) %></td>
           <td>
-            <div class="relative-post-evaluation">
-              <span id="star-rate-<%= @book.id %>"></span>
-              <script>
-              $('#star-rate-<%= @book.id %>').empty();
-                $('#star-rate-<%= @book.id %>').raty({
-                  size: 36,
-                  starOff: "<%= asset_path('star-off.png') %>",
-                  starOn: "<%= asset_path('star-on.png') %>",
-                  starHalf: "<%= asset_path('star-half.png') %>",
-                  half: true,
-                  readOnly: true,
-                  score: <%= @book.rate %>,
-                });
-              </script>
-              <%= @book.rate %>
-            </div>
+            <%= render "star_rate",book:@book %>
           </td>
-          <% if @book.user_id==current_user.id %>
-            <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
-            <td><%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
-          <% else %>
-            <td id="favorite_buttons_<%= @book.id %>">
-              <%= render "favorites/favorite", book:@book %>
-            </td>
-            <td class="book-comments-counter"><%= render "book_comments/counter", book:@book %></td>
-          <% end %>
+            <% if @book.user_id==current_user.id %>
+              <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success edit_book_#{@book.id}" %></td>
+              <td><%= link_to 'Destroy', book_path(@book), method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger destroy_book_#{@book.id}"%></td>
+            <% else %>
+              <td id="favorite_buttons_<%= @book.id %>">
+                <%= render "favorites/favorite", book:@book %>
+              </td>
+              <td class="book-comments-counter"><%= render "book_comments/counter", book:@book %></td>
+            <% end %>
           <td>
             <i class="fa-solid fa-eye" style="color:gray; "></i><%= @book.impressionist_count(:filter=>:session_hash) %>
           </td>
@@ -56,7 +41,6 @@
 
       <div id="comment-form">
         <%= render "book_comments/form",book:@book,book_comment:@book_comment %>
-      </div>
       </div>
     </div>
   </div>

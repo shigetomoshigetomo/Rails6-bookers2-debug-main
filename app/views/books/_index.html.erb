@@ -28,28 +28,13 @@
         </td>
         <td><%= render "book_comments/counter",book:book %></td>
         <td>
-          <div class="relative-post-evaluation">
-            <span id="star-rate-<%= book.id %>"></span>
-            <script>
-            $('#star-rate-<%= book.id %>').empty();
-              $('#star-rate-<%= book.id %>').raty({
-                size: 36,
-                starOff: "<%= asset_path('star-off.png') %>",
-                starOn: "<%= asset_path('star-on.png') %>",
-                starHalf: "<%= asset_path('star-half.png') %>",
-                half: true,
-                readOnly: true,
-                score: <%= book.rate %>,
-              });
-            </script>
-            <%= book.rate %>
-          </div>
-          </td>
+          <%= render "books/star_rate",book:book %>
+        </td>
         <td>
-          <i class="fa-solid fa-eye" style="color:gray; "></i><%= book.impressionist_count(:filter=>:session_hash) %>
+          <i class="fa-solid fa-eye eye" style="color:gray; "></i><%= book.impressionist_count(:filter=>:session_hash) %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= paginate books %>
+<%= paginate books, theme: 'twitter-bootstrap-4' %>
