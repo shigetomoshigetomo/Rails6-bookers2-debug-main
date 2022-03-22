@@ -12,10 +12,13 @@ import "popper.js"
 import "bootstrap"
 import '@fortawesome/fontawesome-free/js/all';
 import "../stylesheets/application"
+import Chart from 'chart.js/auto';
+require ('chart.js')
+
 window.$ = window.jQuery = require('jquery');
 require('packs/raty')
-require("chartkick")
-require("chart.js")
+
+
 
 Rails.start()
 Turbolinks.start()

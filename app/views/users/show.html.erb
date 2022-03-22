@@ -15,6 +15,28 @@
       yesterday_compare: @yesterday_compare,this_week: @this_week,last_week: @last_week,week_compare: @week_compare %>
 
       <h3>7日間分の投稿数</h3>
+      <table class="table table-bordered">
+        <thead class="table-info">
+          <th>６日前</th>
+          <th>５日前</th>
+          <th>４日前</th>
+          <th>３日前</th>
+          <th>２日前</th>
+          <th>１日前</th>
+          <th>今日</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @books.created_6days.count %></td>
+            <td><%= @books.created_5days.count %></td>
+            <td><%= @books.created_4days.count %></td>
+            <td><%= @books.created_3days.count %></td>
+            <td><%= @books.created_2days.count %></td>
+            <td><%= @books.created_yesterday.count %></td>
+            <td><%= @books.created_today.count %></td>
+          </tr>
+        </tbody>
+      </table>
 
 
     </div>
