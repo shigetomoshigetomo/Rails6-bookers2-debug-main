@@ -12,6 +12,15 @@ class UsersController < ApplicationController
     @this_week=@books.created_this_week
     @last_week=@books.created_last_week
     @week_compare=@this_week.count/@last_week.count.to_f
+
+    array=[]
+    @books.each do |book|
+      point=book.favorites.count
+      array << point
+    end
+    @point_sum=array.sum
+    @level=@point_sum.to_i / 5
+
   end
 
   def index

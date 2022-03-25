@@ -26,11 +26,14 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
   $(document).on('turbolinks:load', function() {
-    if(myLineChart){
-        myLineChart.destroy();
-      }
+
     var ctx = document.getElementById("myLineChart");
+    if(myLineChart){
+        myLineChart.clean();
+      }
+
     var myLineChart;
     myLineChart = new Chart(ctx, {
       type: 'line',
@@ -72,5 +75,7 @@
       }
     });
   });
+
+
 </script>
 
