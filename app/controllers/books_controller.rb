@@ -1,51 +1,50 @@
 class BooksController < ApplicationController
-
-  impressionist :actions=>[:show]
+  impressionist :actions => [:show]
 
   def show
     @book = Book.find(params[:id])
     impressionist(@book, nil, unique: [:session_hash.to_s])
-    @book_new=Book.new
-    @book_comment=BookComment.new
+    @book_new = Book.new
+    @book_comment = BookComment.new
 
     if params[:tag_name]
-      @books=Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
+      @books = Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
     end
-
   end
 
   def index
-    @sequence=params[:sequence]
-    to=Time.current.at_end_of_day
-    from=(to-6.day).at_beginning_of_day
+    @sequence = params[:sequence]
+    to = Time.current.at_end_of_day
+    from = (to - 6.day).at_beginning_of_day
 
-    if @sequence=="新着順"
-      books=Book.all.order(created_at: :desc)
-      @books=Kaminari.paginate_array(books).page(params[:page]).per(10)
-    elsif @sequence=="評価が高い順"
-      books=Book.all.order(rate: :desc)
-      @books=Kaminari.paginate_array(books).page(params[:page]).per(10)
+    if @sequence == "新着順"
+      books = Book.all.order(created_at: :desc)
+      @books = Kaminari.paginate_array(books).page(params[:page]).per(10)
+    elsif @sequence == "評価が高い順"
+      books = Book.all.order(rate: :desc)
+      @books = Kaminari.paginate_array(books).page(params[:page]).per(10)
     else
-      books = Book.all.sort {|a,b|
-      b.favorites.where(created_at: from...to).size <=>
-      a.favorites.where(created_at: from...to).size}
-      @books=Kaminari.paginate_array(books).page(params[:page]).per(10)
+      books = Book.all.sort do |a, b|
+        b.favorites.where(created_at: from...to).size <=>
+        a.favorites.where(created_at: from...to).size
+      end
+      @books = Kaminari.paginate_array(books).page(params[:page]).per(10)
     end
 
     if params[:tag_name]
-      @books=Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
+      @books = Book.tagged_with(params[:tag_name]).page(params[:page]).per(5)
     end
 
     if params[:word]
-      @books=Book.tagged_with(params[:word],match_all: true).page(params[:page]).per(5)
+      @books = Book.tagged_with(params[:word], match_all: true).page(params[:page]).per(5)
     end
 
-    @book=Book.new
+    @book = Book.new
   end
 
   def create
     @book = Book.new(book_params)
-    @book.user_id=current_user.id
+    @book.user_id = current_user.id
     if @book.save
       redirect_to book_path(@book.id), notice: "You have created book successfully."
     else
@@ -56,7 +55,7 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
-    if @book.user_id!=current_user.id
+    if @book.user_id != current_user.id
       redirect_to books_path
     end
   end
@@ -79,6 +78,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    params.require(:book).permit(:title,:body,:rate,:tag_list)
+    params.require(:book).permit(:title, :body, :rate, :tag_list)
   end
 end
